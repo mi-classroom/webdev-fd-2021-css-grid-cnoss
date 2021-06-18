@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "stylelint styles/**/*.css",
-    "lint:fix": "stylelint styles/**/*.css --fix"
+    "lint": "stylelint src/styles/**/*.scss",
+    "lint:fix": "stylelint src/styles/**/*.scss --fix",
+    "dev:css": "node-sass --source-map true src/styles/scss src/styles/scss/main.scss -o src/styles/",
+    "watch:sass": "node-sass --source-map true --watch src/styles/scss src/styles/scss/main.scss -o src/styles/",
+    "watch": "npm-run-all --parallel dev:css watch:*"
   },
   "repository": {
     "type": "git",
@@ -19,9 +22,12 @@
   },
   "homepage": "https://github.com/mi-classroom/webdev-fd-2021-css-grid-cnoss#readme",
   "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.35.1",
     "stylelint": "^13.13.1",
     "stylelint-config-idiomatic-order": "^8.1.0",
     "stylelint-config-standard": "^22.0.0",
-    "stylelint-order": "^4.1.0"
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.19.0"
   }
 }
