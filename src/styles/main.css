@@ -50,38 +50,38 @@ select {
   font: inherit; }
 
 @font-face {
+  font-display: swap;
   font-family: IBMPlexSans;
   font-style: normal;
   font-weight: 300;
-  font-display: swap;
   src: url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Light.ttf") format("truetype"), url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Light.woff2") format("woff2"); }
 
 @font-face {
+  font-display: swap;
   font-family: IBMPlexSans;
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
   src: url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf") format("truetype"), url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.woff2") format("woff2"); }
 
 @font-face {
+  font-display: swap;
   font-family: IBMPlexSans;
   font-style: normal;
   font-weight: 500;
-  font-display: swap;
   src: url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Medium.ttf") format("truetype"), url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Medium.woff2") format("woff2"); }
 
 @font-face {
+  font-display: swap;
   font-family: IBMPlexSans;
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
   src: url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Bold.ttf") format("truetype"), url("../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Bold.woff2") format("woff2"); }
 
 @font-face {
+  font-display: swap;
   font-family: MaterialIcons;
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
   src: url("../assets/fonts/MaterialIcons/MaterialIcons-Regular.eot");
   /* For IE6-8 */
   src: local("Material Icons"), local("MaterialIcons-Regular"), url("../assets/fonts/MaterialIcons/MaterialIcons-Regular.woff2") format("woff2"), url("../assets/fonts/MaterialIcons/MaterialIcons-Regular.woff") format("woff"), url("../assets/fonts/MaterialIcons/MaterialIcons-Regular.ttf") format("truetype"); }
@@ -118,6 +118,7 @@ select {
   --lh-normal: 140%;
   --lh-tight: 110%;
   --lh-loose: 150%;
+  --tr-slow: 0.5s;
   --tr-fast: 0.3s;
   --shadow-l: 0 0 10px rgba(0, 0, 0, 0.5);
   --n-shadow-l:
@@ -129,24 +130,24 @@ select {
   --radius-m: var(--m); }
 
 .icon {
-  height: auto;
-  width: auto;
-  font-family: var(--ff-icons);
-  vertical-align: middle;
-  font-weight: normal;
-  font-style: normal;
   display: inline-block;
-  line-height: inherit;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
+  width: auto;
+  height: auto;
+  margin-right: var(--xs);
   direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--ff-icons);
   font-feature-settings: 'liga';
-  margin-right: var(--xs); }
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: normal; }
   .icon--s {
     font-size: var(--s);
     line-height: var(--s); }
@@ -166,7 +167,7 @@ select {
   .icon--inline {
     margin-right: 0.4em;
     font-size: var(--m); }
-  .icon:before {
+  .icon::before {
     content: attr(data-icon); }
 
 * {
@@ -232,18 +233,6 @@ img {
 .content-wrap:nth-child(even) {
   background-color: var(--lighter); }
 
-/* Card
-###########################################################################  */
-.card {
-  overflow: hidden;
-  width: clamp(300px, 50%, 800px);
-  background-color: var(--lightest);
-  border-radius: var(--radius-m);
-  box-shadow: var(--n-shadow-l); }
-
-.card figcaption {
-  padding: var(--l) var(--m) var(--xl) var(--m); }
-
 /* Meta Infos
 ###########################################################################  */
 .info-list {
@@ -269,6 +258,7 @@ img {
   width: 100%;
   max-width: calc(var(--l) * 40);
   padding: var(--m);
+  margin-bottom: var(--xxl);
   font-size: var(--l);
   line-height: var(--lh-normal); }
 
@@ -276,5 +266,49 @@ img {
 ###########################################################################  */
 .additional-infos {
   display: none; }
+
+/* Overview
+###########################################################################  */
+.overview {
+  display: flex;
+  padding: 0;
+  margin: 0; }
+
+/* Card
+###########################################################################  */
+.card {
+  position: relative;
+  overflow: hidden;
+  width: clamp(300px, 50%, 800px);
+  flex-basis: 12rem;
+  flex-grow: 1;
+  flex-shrink: 0;
+  background-color: var(--lightest);
+  box-shadow: var(--shadow-l);
+  transition: flex var(--tr-fast) ease-out; }
+  .card:hover {
+    flex-basis: 30rem; }
+  .card__header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: var(--m);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)); }
+  .card__title, .card__content {
+    padding: 0;
+    margin: 0; }
+  .card__title {
+    font-size: var(--l); }
+  .card__content {
+    color: var(--lightest); }
+  .card img {
+    aspect-ratio: 1/1;
+    object-fit: cover; }
+  .card figcaption {
+    display: none; }
+  .card blockquote {
+    padding: var(--m);
+    padding-bottom: var(--l); }
 
 /*# sourceMappingURL=main.css.map */
